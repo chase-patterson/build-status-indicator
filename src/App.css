@@ -1,0 +1,11 @@
+.App {
+    padding: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+  }

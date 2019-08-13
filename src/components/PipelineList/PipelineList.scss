@@ -1,0 +1,54 @@
+$button-radius: 0.25rem;
+$button-min-dim: 1.25rem;
+
+.PipelineList ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0.5rem;
+}
+
+.pipelineRow {
+    display: flex;
+    margin-bottom: 0.25rem;
+    align-items: flex-start;
+
+    &:nth-last-child(2) {
+        margin-bottom: 0;
+    }
+}
+
+@mixin colored-button($hue) {
+    background-color: lighten($hue, 20%);
+    color: white;
+
+    &:active {
+        background-color: lighten($hue, 40%);
+    }
+}
+
+%button {
+    width: $button-min-dim;
+    height: $button-min-dim;
+    margin: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    border-style: none;
+    border-radius: $button-radius;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.remove {
+    @extend %button;
+    padding: 0;
+    float: right;
+    @include colored-button(desaturate(#f00, 10%));
+}
+
+.add {
+    width: auto;
+    @extend %button;
+    @include colored-button(desaturate(#07f, 10%));
+}
