@@ -1,0 +1,28 @@
+$blue: #07f;
+$red: #f00;
+$button-radius: 0.25rem;
+$button-min-dim: 1.25rem;
+$button-margin: 0.25rem;
+
+@mixin colored-button($hue) {
+    background-color: lighten($hue, 20%);
+    color: white;
+
+    &:active {
+        background-color: lighten($hue, 40%);
+    }
+}
+
+%button {
+    width: $button-min-dim;
+    height: $button-min-dim;
+    margin: $button-margin;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    border-style: none;
+    border-radius: $button-radius;
+
+    &:focus {
+        outline: 0;
+    }
+}

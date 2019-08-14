@@ -7,35 +7,44 @@ class PipelineList extends Component {
     super(props);
 
     this.state = {
-      pipelines: []
+      editing: false
     };
   }
 
   render() {
+    let pipelineListClasses = `PipelineList ${this.state.editing ? 'editing' : ''}`;
+    let noPipelinesMsg = <p>You're not monitoring any pipelines, yet; <button className="init_add" onClick={this.addPipeline.bind(this)}>add one</button>.</p>;
+    let editBtn = <button className="edit" onClick={this.setEditing.bind(this, true)}>Add/Remove</button>;
+    let doneBtn = <button className="done" onClick={this.setEditing.bind(this, false)}>Done</button>;
+    let addPipelineBtn = <button className="add" onClick={this.addPipeline.bind(this)}>Add Pipeline</button>;
     return (
-      <div className="PipelineList">
+      <div className={pipelineListClasses}>
         <h2>Pipelines</h2>
+        {this.props.pipelines.length == 0 ? noPipelinesMsg : (this.state.editing ? doneBtn : editBtn)}
         <ul>
-          {this.state.pipelines.map((pipeline, i) => <li class="pipelineRow" key={i}>
+          {this.props.pipelines.map((pipeline, i) => <li className="pipelineRow" key={i}>
             {pipeline}
-            <button class="remove" onClick={this.removePipeline.bind(this, pipeline)}>&#x2715;</button>
+            {this.state.editing ? <button className="remove" onClick={this.removePipeline.bind(this, pipeline)}>&#x2715;</button> : ""}
           </li>)}
-          <li><button class="add" onClick={this.addPipeline.bind(this)}>Add Pipeline</button></li>
+          {(this.state.editing ? addPipelineBtn : "")}
         </ul>
       </div>
     );
   }
 
   addPipeline() {
-    this.setState((state, props) => {
-      return { pipelines: state.pipelines.concat(<Pipeline />) };
+    this.props.addPipeline();
+  }
+
+  removePipeline(remove) {
+    this.props.removePipeline(remove);
+    this.setState({
+      editing: (this.props.pipelines.length <= 1) ? false : true
     });
   }
 
-  removePipeline(deleted) {
-    this.setState({
-      pipelines: this.state.pipelines.filter((pipeline) => pipeline !== deleted)
-    });
+  setEditing(editingState) {
+    this.setState({ editing: editingState });
   }
 }
 

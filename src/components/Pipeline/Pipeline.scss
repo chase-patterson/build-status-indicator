@@ -1,9 +1,53 @@
+@import '../button';
+
 .Pipeline {
     flex: 1;
     padding: 0.5rem;
     background-color: #eeeef5;
-}
 
-label {
-    font-size: 0.75em;
+    .name {
+        font-size: 1.25em;
+        font-weight: bold;
+    }
+
+    .edit,.done {
+        @extend %button;
+        @include colored-button(desaturate($blue, 10%));
+        float: right;
+        width: auto;
+    }
+
+    .form_section_title {
+        margin: 0.25rem;
+    }
+
+    .form_item {
+        display: inline-block;
+        margin: 0.25rem
+    }
+
+    label {
+        font-size: 0.75rem;
+        display: block;
+    }
+
+    input {
+        display: block;
+    }
+
+    .linked_indicators {
+        .no_indicators_msg {
+            font-size: 0.75rem;
+            margin: 0.25rem;
+        }
+
+        .indicator_row {
+            background-color: #f9f9f9;
+            margin-bottom: 0.25rem;
+
+            .remove {
+                float: right;
+            }
+        }
+    }
 }

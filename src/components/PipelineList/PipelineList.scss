@@ -1,54 +1,49 @@
-$button-radius: 0.25rem;
-$button-min-dim: 1.25rem;
+@import '../button';
 
-.PipelineList ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0.5rem;
-}
-
-.pipelineRow {
-    display: flex;
-    margin-bottom: 0.25rem;
-    align-items: flex-start;
-
-    &:nth-last-child(2) {
-        margin-bottom: 0;
+.PipelineList {
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+        clear: right;
     }
-}
 
-@mixin colored-button($hue) {
-    background-color: lighten($hue, 20%);
-    color: white;
-
-    &:active {
-        background-color: lighten($hue, 40%);
+    .pipelineRow {
+        display: flex;
+        margin-bottom: 0.25rem;
+        align-items: flex-start;
     }
-}
 
-%button {
-    width: $button-min-dim;
-    height: $button-min-dim;
-    margin: 0.25rem;
-    font-size: 0.75rem;
-    line-height: 0.75rem;
-    border-style: none;
-    border-radius: $button-radius;
-
-    &:focus {
-        outline: 0;
+    .edit,.done {
+        @extend %button;
+        @include colored-button(desaturate($blue, 10%));
+        float: right;
+        width: auto;
     }
-}
 
-.remove {
-    @extend %button;
-    padding: 0;
-    float: right;
-    @include colored-button(desaturate(#f00, 10%));
-}
+    &.editing > .edit, &.editing > .done {
+        margin-right: $button-margin + (2 * $button-margin) + $button-min-dim;
+    }
 
-.add {
-    width: auto;
-    @extend %button;
-    @include colored-button(desaturate(#07f, 10%));
+    .remove {
+        @extend %button;
+        @include colored-button(desaturate($red, 10%));
+        padding: 0;
+        float: right;
+    }
+
+    .add {
+        @extend %button;
+        @include colored-button(desaturate($blue, 10%));
+        width: auto;
+        margin-top: 0;
+    }
+
+    .init_add {
+        background: none;
+        border-style: none;
+        padding: 0;
+        font-size: 1em;
+        font-family: inherit;
+        color: $blue;
+    }
 }
