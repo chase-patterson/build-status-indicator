@@ -52,10 +52,6 @@ class App extends Component {
   }
 
   addPipeline() {
-    this.setState((state) => {
-      return { pipelines: state.pipelines.concat(<Pipeline editing={true} indicators={state.indicators} />) };
-    });
-
     fetch('http://localhost:9292/api/pipelines', {
       method: 'POST',
       mode: 'cors',
@@ -69,16 +65,32 @@ class App extends Component {
       result => result.json()
     ).then(
       (result) => {
+        this.setState((state) => {
+          return { pipelines: state.pipelines.concat(<Pipeline id={result.id} editing={true} indicators={state.indicators} />) };
+        });
       },
       (error) => {
       }
     )
   }
 
-  removePipeline(deleted) {
+  removePipeline(remove) {
     this.setState({
-      pipelines: this.state.pipelines.filter((pipeline) => pipeline !== deleted)
+      pipelines: this.state.pipelines.filter((pipeline) => pipeline !== remove)
     });
+
+    fetch('http://localhost:9292/api/pipelines', {
+      method: 'DELETE',
+      mode: 'cors',
+      body: JSON.stringify({
+        id: remove.props.id
+      }),
+    }).then(
+      (result) => {
+      },
+      (error) => {
+      }
+    )
   }
 
   addIndicator() {
@@ -87,9 +99,9 @@ class App extends Component {
     });
   }
 
-  removeIndicator(deleted) {
+  removeIndicator(remove) {
     this.setState({
-      indicators: this.state.indicators.filter((indicator) => indicator !== deleted)
+      indicators: this.state.indicators.filter((indicator) => indicator !== remove)
     });
   }
 
