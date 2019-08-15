@@ -17,6 +17,26 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    fetch('http://localhost:9292/api/pipelines', { mode: 'cors' }).then(
+      result => result.json()
+    ).then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          pipelines: result.map((pipeline) => {
+            return (
+              <Pipeline id={pipeline.id} indicators={this.state.indicators}
+                jenkins-project-url={pipeline.jenkins_project_url} />
+            );
+          })
+        })
+      },
+      (error) => {
+      }
+    )
+  }
+
   render() {
     return (
       <div className="App">
@@ -35,6 +55,24 @@ class App extends Component {
     this.setState((state) => {
       return { pipelines: state.pipelines.concat(<Pipeline editing={true} indicators={state.indicators} />) };
     });
+
+    fetch('http://localhost:9292/api/pipelines', {
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify({
+        jenkins_project_url: this.state.jenkinsProjectUrl
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      result => result.json()
+    ).then(
+      (result) => {
+      },
+      (error) => {
+      }
+    )
   }
 
   removePipeline(deleted) {

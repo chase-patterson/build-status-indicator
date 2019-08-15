@@ -7,20 +7,24 @@ class Pipeline extends Component {
     super(props);
 
     this.state = {
-      editing: props.editing,
-      linkedIndicators: []
+      id: props.id == undefined ? "" : props.id,
+      editing: props.editing == undefined ? false : props.editing,
+      jenkinsProjectUrl: props['jenkins-project-url'] == undefined ? "" : props['jenkins-project-url'],
+      linkedIndicators: props['linked-indicators'] == undefined ? [] : props['linked-indicators']
     };
   }
 
   render() {
     let content = "";
     let editBtn = <button className="edit" onClick={this.setEditing.bind(this, true)}>Edit</button>;
-    let doneBtn = <button className="done" onClick={this.setEditing.bind(this, false)}>Done</button>;
+    let doneBtn = <button className="done" onClick={this.handleDone.bind(this)}>Done</button>;
+    let jenkinsProjectUrlField = <input value={this.state.jenkinsProjectUrl} type="text" size="50" name="jenkins-project-url" onChange={this.handleJenkinsProjectUrlChange.bind(this)} />
+
     if (this.state.editing) {
       content = (
         <><div className="form_item">
           <label>Jenkins Job URL</label>
-          <input type="text" size="50" name="jenkins-job-url" />
+          {jenkinsProjectUrlField}
         </div>
 
         <div className="form_section_title">Linked Indicators</div>
@@ -63,6 +67,33 @@ class Pipeline extends Component {
 
   setEditing(editingState) {
     this.setState({ editing: editingState });
+  }
+
+  handleDone() {
+    this.setEditing(false);
+
+    fetch('http://localhost:9292/api/pipelines', {
+      method: 'PUT',
+      mode: 'cors',
+      body: JSON.stringify({
+        id: this.state.id,
+        jenkins_project_url: this.state.jenkinsProjectUrl
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (result) => {
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  handleJenkinsProjectUrlChange(event) {
+    this.setState({ jenkinsProjectUrl: event.target.value });
+    return event.target.value;
   }
 
   addLinkedIndicator() {
