@@ -26,22 +26,24 @@ class Pipeline extends Component {
         <div className="form_section_title">Linked Indicators</div>
         <ul className="linked_indicators">
           {this.state.linkedIndicators.length == 0 ? <div className="no_indicators_msg">No indicators are linked to this pipeline.</div> : ""}
-          {this.state.linkedIndicators.map((indicator, i) => <li className="indicator_row" key={i}>
-            <div className="form_item">
-              <label>Indicator</label>
-              <select>
-                {this.props.indicators.map((indicator, i) => <option key={i}>
-                  {indicator.name}
-                </option>)}
-              </select>
-            </div>
-            <div className="form_item">
-              <label>Status Indicated</label>
-              <select>
-                <option>All</option>
-                <option>Success</option>
-                <option>Failure</option>
-              </select>
+          {this.state.linkedIndicators.map((indicator, i) => <li key={i} className="indicator_row">
+            <div className="linked_indicator">
+              <div className="form_item">
+                <label>Indicator</label>
+                <select>
+                  {this.props.indicators.map((indicator, i) => <option key={i}>
+                    {indicator.name}
+                  </option>)}
+                </select>
+              </div>
+              <div className="form_item">
+                <label>Status Indicated</label>
+                <select>
+                  <option>All</option>
+                  <option>Success</option>
+                  <option>Failure</option>
+                </select>
+              </div>
             </div>
             <button className="remove" onClick={this.removeLinkedIndicator.bind(this, indicator)}>&#x2715;</button>
           </li>)}

@@ -42,12 +42,17 @@
         }
 
         .indicator_row {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .linked_indicator {
             background-color: #f9f9f9;
             margin-bottom: 0.25rem;
+            width: 100%;
+        }
 
-            .remove {
-                float: right;
-            }
+        .remove {
         }
     }
 }

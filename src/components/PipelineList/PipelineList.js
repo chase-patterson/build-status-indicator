@@ -22,7 +22,7 @@ class PipelineList extends Component {
         <h2>Pipelines</h2>
         {this.props.pipelines.length == 0 ? noPipelinesMsg : (this.state.editing ? doneBtn : editBtn)}
         <ul>
-          {this.props.pipelines.map((pipeline, i) => <li className="pipelineRow" key={i}>
+          {this.props.pipelines.map((pipeline, i) => <li className="pipeline_row" key={i}>
             {pipeline}
             {this.state.editing ? <button className="remove" onClick={this.removePipeline.bind(this, pipeline)}>&#x2715;</button> : ""}
           </li>)}
