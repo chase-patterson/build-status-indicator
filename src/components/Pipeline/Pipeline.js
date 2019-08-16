@@ -35,8 +35,8 @@ class Pipeline extends Component {
               <div className="form_item">
                 <label>Indicator</label>
                 <select>
-                  {this.props.indicators.map((indicator, i) => <option key={i}>
-                    {indicator.id}
+                  {this.props.indicatorIds.map((id, i) => <option key={i}>
+                    {id}
                   </option>)}
                 </select>
               </div>

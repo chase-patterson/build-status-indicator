@@ -13,22 +13,27 @@ class App extends Component {
 
     this.state = {
         pipelines: [],
+        indicatorIDs: [],
         indicators: [],
         controllers: []
     };
   }
 
   componentDidMount() {
-    fetch('http://localhost:9292/api/pipelines', { mode: 'cors' }).then(
+    fetch('http://localhost:9292/api/indicators', { mode: 'cors' }).then(
       result => result.json()
     ).then(
       (result) => {
         this.setState({
           isLoaded: true,
-          pipelines: result.map((pipeline) => {
+          indicatorIds: result.map((indicator) => {
             return (
-              <Pipeline id={pipeline.id} indicators={this.state.indicators}
-                jenkins-project-url={pipeline.jenkins_project_url} />
+              indicator.id
+            );
+          }),
+          indicators: result.map((indicator) => {
+            return (
+              <Indicator id={indicator.id} state={indicator.state} brightness={indicator.brightness} />
             );
           })
         })
@@ -37,15 +42,16 @@ class App extends Component {
       }
     )
 
-    fetch('http://localhost:9292/api/indicators', { mode: 'cors' }).then(
+    fetch('http://localhost:9292/api/pipelines', { mode: 'cors' }).then(
       result => result.json()
     ).then(
       (result) => {
         this.setState({
           isLoaded: true,
-          indicators: result.map((indicator) => {
+          pipelines: result.map((pipeline) => {
             return (
-              <Indicator id={indicator.id} state={indicator.state} brightness={indicator.brightness} />
+              <Pipeline id={pipeline.id} indicatorIds={this.state.indicatorIds}
+                jenkins-project-url={pipeline.jenkins_project_url} />
             );
           })
         })
