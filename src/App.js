@@ -45,7 +45,7 @@ class App extends Component {
           isLoaded: true,
           indicators: result.map((indicator) => {
             return (
-              <Indicator id={indicator.id} />
+              <Indicator id={indicator.id} state={indicator.state} brightness={indicator.brightness} />
             );
           })
         })

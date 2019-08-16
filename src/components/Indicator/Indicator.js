@@ -7,8 +7,8 @@ class Indicator extends Component {
     super(props);
 
     this.state = {
-      state: false,
-      brightness: 0
+      state: props.state,
+      brightness: props.brightness
     }
   }
 
@@ -19,13 +19,13 @@ class Indicator extends Component {
         <label>Brightness</label>
         <input type="range" min="1" max="255" value={this.state.brightness} className="brightness" onChange={this.handleBrightnessChange.bind(this)} />
         <label>State</label>
-        <input checked={this.state.state} type="checkbox" className="state" onChange={this.handleStateChange.bind(this)} />
+        <input checked={this.state.state == 'on' ? true : false} type="checkbox" className="state" onChange={this.handleStateChange.bind(this)} />
       </div>
     );
   }
 
   handleStateChange(event) {
-    this.setState({ state: event.target.checked });
+    this.setState({ state: event.target.checked ? 'on' : 'off' });
 
     fetch('http://localhost:9292/api/indicators', {
       method: 'PUT',
@@ -55,7 +55,7 @@ class Indicator extends Component {
       clearTimeout(this.stateRangeTimeout);
       this.stateRangeTimeout = null;
     }
-    this.stateRangeTimeout = setTimeout(this.sendBrightness.bind(this, this.state.brightness.toString()), 1000);
+    this.stateRangeTimeout = setTimeout(this.sendBrightness.bind(this, event.target.value), 1000);
 
     return event.target.value;
   }
@@ -66,7 +66,6 @@ class Indicator extends Component {
       mode: 'cors',
       body: JSON.stringify({
         id: this.props.id,
-        state: this.state.state ? 'on' : 'off',
         brightness: brightness
       }),
       headers: {
