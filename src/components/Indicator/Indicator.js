@@ -15,11 +15,17 @@ class Indicator extends Component {
   render() {
     return (
       <div className="Indicator">
-        ID: {this.props.id}
-        <label>Brightness</label>
-        <input type="range" min="1" max="255" value={this.state.brightness} className="brightness" onChange={this.handleBrightnessChange.bind(this)} />
-        <label>State</label>
-        <input checked={this.state.state == 'on' ? true : false} type="checkbox" className="state" onChange={this.handleStateChange.bind(this)} />
+        <div className="name">ID: {this.props.id}</div>
+        <div className="form_contents">
+          <div className="form_item">
+            <label>Brightness</label>
+            <input type="range" min="1" max="255" value={this.state.brightness} className="brightness" onChange={this.handleBrightnessChange.bind(this)} />
+          </div>
+          <div className="form_item">
+            <label>State</label>
+            <input checked={this.state.state == 'on' ? true : false} type="checkbox" className="state" onChange={this.handleStateChange.bind(this)} />
+          </div>
+        </div>
       </div>
     );
   }

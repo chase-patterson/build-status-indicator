@@ -5,6 +5,16 @@
     padding: 0.5rem;
     background-color: #eeeef5;
 
+    .name {
+        font-size: 1.25em;
+        font-weight: bold;
+    }
+
+    .form_contents {
+        display: flex;
+        align-items: flex-start;
+    }
+
     .on {
         @extend %button;
         @include colored-button(desaturate($blue, 10%));
