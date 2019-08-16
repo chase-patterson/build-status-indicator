@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Pipeline from '../Pipeline/Pipeline';
 import './PipelineList.scss';
 
 class PipelineList extends Component {

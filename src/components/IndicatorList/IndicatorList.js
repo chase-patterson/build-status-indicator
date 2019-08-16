@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Indicator from '../Indicator/Indicator';
+
+import './IndicatorList.scss';
 
 class IndicatorList extends Component {
   constructor(props) {

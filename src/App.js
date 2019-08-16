@@ -5,6 +5,7 @@ import ControllerList from './components/ControllerList/ControllerList';
 
 import './App.css';
 import Pipeline from './components/Pipeline/Pipeline';
+import Indicator from './components/Indicator/Indicator';
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +29,23 @@ class App extends Component {
             return (
               <Pipeline id={pipeline.id} indicators={this.state.indicators}
                 jenkins-project-url={pipeline.jenkins_project_url} />
+            );
+          })
+        })
+      },
+      (error) => {
+      }
+    )
+
+    fetch('http://localhost:9292/api/indicators', { mode: 'cors' }).then(
+      result => result.json()
+    ).then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          indicators: result.map((indicator) => {
+            return (
+              <Indicator id={indicator.id} />
             );
           })
         })

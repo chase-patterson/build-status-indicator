@@ -1,0 +1,28 @@
+@import '../button';
+
+.Indicator {
+    flex: 1;
+    padding: 0.5rem;
+    background-color: #eeeef5;
+
+    .on {
+        @extend %button;
+        @include colored-button(desaturate($blue, 10%));
+        float: right;
+        width: auto;
+    }
+
+    .form_item {
+        display: inline-block;
+        margin: 0.25rem
+    }
+
+    label {
+        font-size: 0.75rem;
+        display: block;
+    }
+
+    input {
+        display: block;
+    }
+}
