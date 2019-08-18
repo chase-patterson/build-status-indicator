@@ -7,10 +7,9 @@ class Pipeline extends Component {
     super(props);
 
     this.state = {
-      id: props.id == undefined ? "" : props.id,
       editing: props.editing == undefined ? false : props.editing,
       jenkinsProjectUrl: props['jenkins-project-url'] == undefined ? "" : props['jenkins-project-url'],
-      linkedIndicators: props['linked-indicators'] == undefined ? [] : props['linked-indicators']
+      associatedIndicators: props['associated-indicators'] == undefined ? [] : props['associated-indicators']
     };
   }
 
@@ -27,15 +26,17 @@ class Pipeline extends Component {
           {jenkinsProjectUrlField}
         </div>
 
-        <div className="form_section_title">Linked Indicators</div>
-        <ul className="linked_indicators">
-          {this.state.linkedIndicators.length == 0 ? <div className="no_indicators_msg">No indicators are linked to this pipeline.</div> : ""}
-          {this.state.linkedIndicators.map((indicator, i) => <li key={i} className="indicator_row">
-            <div className="linked_indicator">
+        <div className="form_section_title">Associated Indicators</div>
+        <ul className="associated_indicators">
+          {this.state.associatedIndicators.length == 0 ? <div className="no_indicators_msg">No indicators are associated to this pipeline.</div> : ""}
+          {this.state.associatedIndicators.map((id, i) => <li key={i} className="indicator_row">
+            <div className="associated_indicator">
               <div className="form_item">
                 <label>Indicator</label>
-                <select>
-                  {this.props.indicatorIds.map((id, i) => <option key={i}>
+                <select defaultValue={id}>
+                  <option hidden={true}>Indicator ID</option>
+                  <option value="desc" disabled>Indicator ID</option>
+                  {this.props['indicator-ids'].map((id, i) => <option key={i}>
                     {id}
                   </option>)}
                 </select>
@@ -49,9 +50,9 @@ class Pipeline extends Component {
                 </select>
               </div>
             </div>
-            <button className="remove" onClick={this.removeLinkedIndicator.bind(this, indicator)}>&#x2715;</button>
+            <button className="remove" onClick={this.removeAssociatedIndicator.bind(this, id)}>&#x2715;</button>
           </li>)}
-          <li><button className="add" onClick={this.addLinkedIndicator.bind(this)}>Add Indicator</button></li>
+          <li><button className="add" onClick={this.addAssociatedIndicator.bind(this)}>Add Indicator</button></li>
         </ul></>
       );
     }
@@ -76,8 +77,9 @@ class Pipeline extends Component {
       method: 'PUT',
       mode: 'cors',
       body: JSON.stringify({
-        id: this.state.id,
-        jenkins_project_url: this.state.jenkinsProjectUrl
+        id: this.props.id,
+        jenkins_project_url: this.state.jenkinsProjectUrl,
+        associated_indicators: this.state.associatedIndicators
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -86,7 +88,6 @@ class Pipeline extends Component {
       (result) => {
       },
       (error) => {
-        console.log(error);
       }
     );
   }
@@ -96,15 +97,15 @@ class Pipeline extends Component {
     return event.target.value;
   }
 
-  addLinkedIndicator() {
+  addAssociatedIndicator() {
     this.setState((state) => {
-      return { linkedIndicators: state.linkedIndicators.concat({ indicator: null, status: null }) };
+      return { associatedIndicators: state.associatedIndicators.concat({ indicator: null, status: null }) };
     });
   }
 
-  removeLinkedIndicator(remove) {
+  removeAssociatedIndicator(remove) {
     this.setState({
-      linkedIndicators: this.state.linkedIndicators.filter((indicator) => indicator !== remove)
+      associatedIndicators: this.state.associatedIndicators.filter((indicator) => indicator !== remove)
     });
   }
 }

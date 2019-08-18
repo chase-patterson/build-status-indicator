@@ -50,8 +50,8 @@ class App extends Component {
           isLoaded: true,
           pipelines: result.map((pipeline) => {
             return (
-              <Pipeline id={pipeline.id} indicatorIds={this.state.indicatorIds}
-                jenkins-project-url={pipeline.jenkins_project_url} />
+              <Pipeline id={pipeline.id} indicator-ids={this.state.indicatorIds}
+                jenkins-project-url={pipeline.jenkins_project_url} associated-indicators={pipeline['associated_indicators']} />
             );
           })
         })
@@ -90,7 +90,7 @@ class App extends Component {
     ).then(
       (result) => {
         this.setState((state) => {
-          return { pipelines: state.pipelines.concat(<Pipeline id={result.id} editing={true} indicators={state.indicators} />) };
+          return { pipelines: state.pipelines.concat(<Pipeline id={result.id} indicator-ids={this.state.indicatorIDs} editing={true} indicators={state.indicators} />) };
         });
       },
       (error) => {
