@@ -12,7 +12,7 @@ class IndicatorList extends Component {
       <div className="IndicatorList">
         <h2>Indicators</h2>
         <ul>
-          {this.props.indicators.map((indicator, i) => <li key={i}>
+          {this.props.indicators.map((indicator, i) => <li className="indicator_row" key={i}>
             {indicator}
           </li>)}
         </ul>
