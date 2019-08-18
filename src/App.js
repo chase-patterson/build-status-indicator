@@ -13,7 +13,7 @@ class App extends Component {
 
     this.state = {
         pipelines: [],
-        indicatorIDs: [],
+        indicatorIds: [],
         indicators: [],
         controllers: []
     };
@@ -51,7 +51,7 @@ class App extends Component {
           pipelines: result.map((pipeline) => {
             return (
               <Pipeline id={pipeline.id} indicator-ids={this.state.indicatorIds}
-                jenkins-project-url={pipeline.jenkins_project_url} associated-indicators={pipeline['associated_indicators']} />
+                jenkins-project-url={pipeline.jenkins_project_url} indicator-associations={pipeline['indicator_associations']} />
             );
           })
         })
@@ -90,7 +90,7 @@ class App extends Component {
     ).then(
       (result) => {
         this.setState((state) => {
-          return { pipelines: state.pipelines.concat(<Pipeline id={result.id} indicator-ids={this.state.indicatorIDs} editing={true} indicators={state.indicators} />) };
+          return { pipelines: state.pipelines.concat(<Pipeline id={result.id} indicator-ids={this.state.indicatorIds} editing={true} />) };
         });
       },
       (error) => {
@@ -115,30 +115,6 @@ class App extends Component {
       (error) => {
       }
     )
-  }
-
-  addIndicator() {
-    this.setState((state) => {
-      return { indicators: state.indicators.concat(<Indicator />) };
-    });
-  }
-
-  removeIndicator(remove) {
-    this.setState({
-      indicators: this.state.indicators.filter((indicator) => indicator !== remove)
-    });
-  }
-
-  addController() {
-    this.setState((state) => {
-      return { controllers: state.controllers.concat(<Controller />) };
-    });
-  }
-
-  removeController(remove) {
-    this.setState({
-      controllers: this.state.controllers.filter((controller) => controller !== remove)
-    });
   }
 }
 

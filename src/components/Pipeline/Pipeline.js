@@ -9,7 +9,7 @@ class Pipeline extends Component {
     this.state = {
       editing: props.editing == undefined ? false : props.editing,
       jenkinsProjectUrl: props['jenkins-project-url'] == undefined ? "" : props['jenkins-project-url'],
-      associatedIndicators: props['associated-indicators'] == undefined ? [] : props['associated-indicators']
+      indicatorAssociations: props['indicator-associations'] == undefined ? [] : props['indicator-associations']
     };
   }
 
@@ -27,30 +27,33 @@ class Pipeline extends Component {
         </div>
 
         <div className="form_section_title">Associated Indicators</div>
-        <ul className="associated_indicators">
-          {this.state.associatedIndicators.length == 0 ? <div className="no_indicators_msg">No indicators are associated to this pipeline.</div> : ""}
-          {this.state.associatedIndicators.map((id, i) => <li key={i} className="indicator_row">
-            <div className="associated_indicator">
+        <ul className="indicator_associations">
+          {this.state.indicatorAssociations.length == 0 ? <div className="no_indicators_msg">No indicators are associated to this pipeline.</div> : ""}
+          {this.state.indicatorAssociations.map((assoc, i) => <li key={i} className="indicator_row">
+            <div className="indicator_association">
               <div className="form_item">
                 <label>Indicator</label>
-                <select defaultValue={id}>
+                <select defaultValue={assoc.id ? assoc.id : "desc"} onChange={this.handleAssociationIdChange.bind(this, i)}>
                   <option hidden={true}>Indicator ID</option>
                   <option value="desc" disabled>Indicator ID</option>
-                  {this.props['indicator-ids'].map((id, i) => <option key={i}>
+                  {this.props['indicator-ids'].map((id) => <option key={id} value={id}>
                     {id}
                   </option>)}
                 </select>
               </div>
               <div className="form_item">
                 <label>Status Indicated</label>
-                <select>
+
+                <select defaultValue={assoc.status ? assoc.status : "desc"} onChange={this.handleAssociationStatusChange.bind(this, i)}>
+                  <option hidden={true}>Status Indicated</option>
+                  <option value="desc" disabled>Status Indicated</option>
                   <option>All</option>
                   <option>Success</option>
                   <option>Failure</option>
                 </select>
               </div>
             </div>
-            <button className="remove" onClick={this.removeAssociatedIndicator.bind(this, id)}>&#x2715;</button>
+            <button className="remove" onClick={this.removeAssociatedIndicator.bind(this, assoc.id)}>&#x2715;</button>
           </li>)}
           <li><button className="add" onClick={this.addAssociatedIndicator.bind(this)}>Add Indicator</button></li>
         </ul></>
@@ -79,7 +82,7 @@ class Pipeline extends Component {
       body: JSON.stringify({
         id: this.props.id,
         jenkins_project_url: this.state.jenkinsProjectUrl,
-        associated_indicators: this.state.associatedIndicators
+        indicator_associations: this.state.indicatorAssociations
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -97,15 +100,37 @@ class Pipeline extends Component {
     return event.target.value;
   }
 
+  handleAssociationIdChange(i, event) {
+    let assocs = [...this.state.indicatorAssociations];
+    assocs[i] = {
+      ...assocs[i],
+      id: event.target.value
+    };
+    this.setState({ indicatorAssociations: assocs });
+
+    return event.target.value;
+  }
+
+  handleAssociationStatusChange(i, event) {
+    let assocs = [...this.state.indicatorAssociations];
+    assocs[i] = {
+      ...assocs[i],
+      status: event.target.value
+    };
+    this.setState({ indicatorAssociations: assocs });
+
+    return event.target.value;
+  }
+
   addAssociatedIndicator() {
-    this.setState((state) => {
-      return { associatedIndicators: state.associatedIndicators.concat({ indicator: null, status: null }) };
+    this.setState({
+      indicatorAssociations: this.state.indicatorAssociations.concat({ id: null, status: null })
     });
   }
 
   removeAssociatedIndicator(remove) {
     this.setState({
-      associatedIndicators: this.state.associatedIndicators.filter((indicator) => indicator !== remove)
+      indicatorAssociations: this.state.indicatorAssociations.filter((assoc) => assoc !== remove)
     });
   }
 }
