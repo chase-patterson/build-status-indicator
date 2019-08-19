@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PipelineList from './components/PipelineList/PipelineList'
 import IndicatorList from './components/IndicatorList/IndicatorList';
 import ControllerList from './components/ControllerList/ControllerList';
+import {v4 as uuid} from 'uuid';
 
 import './App.css';
 import Pipeline from './components/Pipeline/Pipeline';
@@ -51,7 +52,7 @@ class App extends Component {
           pipelines: result.map((pipeline) => {
             return (
               <Pipeline id={pipeline.id} indicator-ids={this.state.indicatorIds}
-                jenkins-project-url={pipeline.jenkins_project_url} indicator-associations={pipeline['indicator_associations']} />
+                jenkins-project-url={pipeline.jenkins_project_url} indicator-associations={pipeline['indicator_associations'].map(assoc => ({...assoc, uuid: uuid()}))} />
             );
           })
         })

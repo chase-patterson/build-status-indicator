@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {v4 as uuid} from 'uuid';
 
 import './Pipeline.scss'
 
@@ -29,7 +30,7 @@ class Pipeline extends Component {
         <div className="form_section_title">Associated Indicators</div>
         <ul className="indicator_associations">
           {this.state.indicatorAssociations.length == 0 ? <div className="no_indicators_msg">No indicators are associated to this pipeline.</div> : ""}
-          {this.state.indicatorAssociations.map((assoc, i) => <li key={i} className="indicator_row">
+          {this.state.indicatorAssociations.map((assoc, i) => <li key={assoc.uuid} className="indicator_row">
             <div className="indicator_association">
               <div className="form_item">
                 <label>Indicator</label>
@@ -124,7 +125,7 @@ class Pipeline extends Component {
 
   addAssociatedIndicator() {
     this.setState({
-      indicatorAssociations: this.state.indicatorAssociations.concat({ id: null, status: null })
+      indicatorAssociations: this.state.indicatorAssociations.concat({ uuid: uuid(), id: null, status: null })
     });
   }
 
