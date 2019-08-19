@@ -53,7 +53,7 @@ class Pipeline extends Component {
                 </select>
               </div>
             </div>
-            <button className="remove" onClick={this.removeAssociatedIndicator.bind(this, assoc.id)}>&#x2715;</button>
+            <button className="remove" onClick={this.removeAssociatedIndicator.bind(this, assoc)}>&#x2715;</button>
           </li>)}
           <li><button className="add" onClick={this.addAssociatedIndicator.bind(this)}>Add Indicator</button></li>
         </ul></>
