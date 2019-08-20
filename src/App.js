@@ -77,7 +77,7 @@ class App extends Component {
   }
 
   addPipeline() {
-    fetch('http://localhost:9292/api/pipelines', {
+    return fetch('http://localhost:9292/api/pipelines', {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
@@ -90,13 +90,13 @@ class App extends Component {
       result => result.json()
     ).then(
       (result) => {
-        this.setState((state) => {
-          return { pipelines: state.pipelines.concat(<Pipeline id={result.id} indicator-ids={this.state.indicatorIds} editing={true} />) };
+        this.setState({
+          pipelines: this.state.pipelines.concat(<Pipeline id={result.id} indicator-ids={this.state.indicatorIds} editing={true} />)
         });
       },
       (error) => {
       }
-    )
+    );
   }
 
   removePipeline(remove) {
@@ -104,7 +104,7 @@ class App extends Component {
       pipelines: this.state.pipelines.filter((pipeline) => pipeline !== remove)
     });
 
-    fetch('http://localhost:9292/api/pipelines', {
+    return fetch('http://localhost:9292/api/pipelines', {
       method: 'DELETE',
       mode: 'cors',
       body: JSON.stringify({
@@ -115,7 +115,7 @@ class App extends Component {
       },
       (error) => {
       }
-    )
+    );
   }
 }
 
