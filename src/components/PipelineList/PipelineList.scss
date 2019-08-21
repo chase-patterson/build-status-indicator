@@ -1,41 +1,48 @@
-@import '../button';
+@import '../../scss/_button';
+@import '../../scss/_colors';
 
 .PipelineList {
-    ul {
+    >ul {
         list-style-type: none;
         padding-left: 0;
         clear: right;
+        margin: 0;
     }
 
     .pipeline_row {
         display: flex;
         align-items: flex-start;
         margin-bottom: 0.25rem;
+
+        >.remove {
+            @extend %button;
+            @include panel-edge-button($panel-color, desaturate($red, 10%), right);
+            padding: 0;
+            float: right;
+        }
+
+        .Pipeline {
+            border-radius: $button-border-radius;
+        }
+
+        &:first-child {
+            .Pipeline {
+                border-top-right-radius: 0;
+            }
+        }
     }
 
-    .edit,.done {
+    >.edit, >.done {
         @extend %button;
-        @include colored-button(desaturate($blue, 10%));
+        @include panel-edge-button($panel-color, desaturate($blue, 10%), top);
         float: right;
         width: auto;
     }
 
-    &.editing > .edit, &.editing > .done {
-        margin-right: $button-margin + (2 * $button-margin) + $button-min-dim;
-    }
-
-    .remove {
+    >.add {
         @extend %button;
-        @include colored-button(desaturate($red, 10%));
-        padding: 0;
-        float: right;
-    }
-
-    .add {
-        @extend %button;
-        @include colored-button(desaturate($blue, 10%));
+        @include panel-edge-button($panel-color, desaturate($blue, 10%), bottom);
         width: auto;
-        margin-top: 0;
     }
 
     .init_add {
@@ -45,5 +52,27 @@
         font-size: 1em;
         font-family: inherit;
         color: $blue;
+    }
+
+    &.editing {
+        >ul {
+            .pipeline_row {
+                &:last-child {
+                    margin-bottom: 0;
+
+                    .Pipeline {
+                        border-bottom-left-radius: 0;
+                    }
+                }
+
+                .Pipeline {
+                    border-top-right-radius: 0;
+                }
+            }
+        }
+
+        >.edit, >.done {
+            margin-right: $button-min-dim + 0.1rem;
+        }
     }
 }

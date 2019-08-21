@@ -19,6 +19,7 @@ class Pipeline extends Component {
     let editBtn = <button className="edit" onClick={this.setEditing.bind(this, true)}>Edit</button>;
     let doneBtn = <button className="done" onClick={this.handleDone.bind(this)}>Done</button>;
     let jenkinsProjectUrlField = <input value={this.state.jenkinsProjectUrl} type="text" size="50" name="jenkins-project-url" onChange={this.handleJenkinsProjectUrlChange.bind(this)} />
+    let indicatorAssociationsClasses = 'indicator_associations' + (this.state.indicatorAssociations.length == 0 ? ' empty' : "")
 
     if (this.state.editing) {
       content = (
@@ -28,36 +29,38 @@ class Pipeline extends Component {
         </div>
 
         <div className="form_section_title">Associated Indicators</div>
-        <ul className="indicator_associations">
-          {this.state.indicatorAssociations.length == 0 ? <div className="no_indicators_msg">No indicators are associated to this pipeline.</div> : ""}
-          {this.state.indicatorAssociations.map((assoc, i) => <li key={assoc.uuid} className="indicator_row">
-            <div className="indicator_association">
-              <div className="form_item">
-                <label>Indicator</label>
-                <select defaultValue={assoc.id ? assoc.id : "desc"} onChange={this.handleAssociationIdChange.bind(this, i)}>
-                  <option hidden={true}>Indicator ID</option>
-                  <option value="desc" disabled>Indicator ID</option>
-                  {this.props['indicator-ids'].map((id) => <option key={id} value={id}>
-                    {id}
-                  </option>)}
-                </select>
-              </div>
-              <div className="form_item">
-                <label>Status Indicated</label>
+        <div className={indicatorAssociationsClasses}>
+          <ul className="indicator_associations">
+            {this.state.indicatorAssociations.length == 0 ? <div className="no_indicators_msg">No indicators are associated to this pipeline.</div> : ""}
+            {this.state.indicatorAssociations.map((assoc, i) => <li key={assoc.uuid} className="indicator_row">
+              <div className="indicator_association">
+                <div className="form_item">
+                  <label>Indicator</label>
+                  <select defaultValue={assoc.id ? assoc.id : "desc"} onChange={this.handleAssociationIdChange.bind(this, i)}>
+                    <option hidden={true}>Indicator ID</option>
+                    <option value="desc" disabled>Indicator ID</option>
+                    {this.props['indicator-ids'].map((id) => <option key={id} value={id}>
+                      {id}
+                    </option>)}
+                  </select>
+                </div>
+                <div className="form_item">
+                  <label>Status Indicated</label>
 
-                <select defaultValue={assoc.status ? assoc.status : "desc"} onChange={this.handleAssociationStatusChange.bind(this, i)}>
-                  <option hidden={true}>Status Indicated</option>
-                  <option value="desc" disabled>Status Indicated</option>
-                  <option>All</option>
-                  <option>Success</option>
-                  <option>Failure</option>
-                </select>
+                  <select defaultValue={assoc.status ? assoc.status : "desc"} onChange={this.handleAssociationStatusChange.bind(this, i)}>
+                    <option hidden={true}>Status Indicated</option>
+                    <option value="desc" disabled>Status Indicated</option>
+                    <option>All</option>
+                    <option>Success</option>
+                    <option>Failure</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <button className="remove" onClick={this.removeAssociatedIndicator.bind(this, assoc)}>&#x2715;</button>
-          </li>)}
-          <li><button className="add" onClick={this.addAssociatedIndicator.bind(this)}>Add Indicator</button></li>
-        </ul></>
+              <button className="remove" onClick={this.removeAssociatedIndicator.bind(this, assoc)}>&#x2715;</button>
+            </li>)}
+          </ul>
+          <button className="add" onClick={this.addAssociatedIndicator.bind(this)}>Add Indicator</button>
+        </div></>
       );
     }
 

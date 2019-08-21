@@ -1,0 +1,63 @@
+@import '../../scss/colors';
+
+$button-min-dim: 1.25rem;
+$button-border-radius: $button-min-dim / 2;
+
+@mixin colored-button($hue) {
+    background-color: lighten($hue, 20%);
+    color: white;
+    border-radius: $button-border-radius !important;
+
+    &:hover {
+        background-color: $hue;
+    }
+
+    &:active {
+        background-color: lighten($hue, 40%);
+        color: $hue;
+    }
+}
+
+@mixin panel-edge-button($panel_color, $hue, $side: "") {
+    background-color: $panel-color;
+    color: desaturate(lighten($hue, 20%), 50%);
+
+    &:hover {
+        color: $hue;
+    }
+
+    &:active {
+        background-color: lighten($hue, 40%);
+    }
+
+    @if $side == top {
+        margin-bottom: 0.1rem;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    } @else if $side == right {
+        margin-left: 0.1rem;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    } @else if $side == bottom {
+        margin-top: 0.1rem;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    } @else if $side == left {
+        margin-right: 0.1rem;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+%button {
+    width: $button-min-dim;
+    height: $button-min-dim;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    border-style: none;
+    border-radius: $button-border-radius;
+
+    &:focus {
+        outline: 0;
+    }
+}

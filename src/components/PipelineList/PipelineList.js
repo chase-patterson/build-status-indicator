@@ -25,8 +25,8 @@ class PipelineList extends Component {
             {pipeline}
             {this.state.editing ? <button className="remove" onClick={this.removePipeline.bind(this, pipeline)}>&#x2715;</button> : ""}
           </li>)}
-          {(this.state.editing ? addPipelineBtn : "")}
         </ul>
+        {(this.state.editing ? addPipelineBtn : "")}
       </div>
     );
   }

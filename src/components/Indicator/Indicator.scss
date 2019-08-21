@@ -1,5 +1,3 @@
-@import '../button';
-
 .Indicator {
     flex: 1;
     padding: 0.5rem;
@@ -13,13 +11,6 @@
     .form_contents {
         display: flex;
         align-items: flex-start;
-    }
-
-    .on {
-        @extend %button;
-        @include colored-button(desaturate($blue, 10%));
-        float: right;
-        width: auto;
     }
 
     .form_item {
