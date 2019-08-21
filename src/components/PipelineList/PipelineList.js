@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './PipelineList.scss';
+import PipelineIcon from '../../../assets/images/pipeline_symbol.svg';
 
 class PipelineList extends Component {
   constructor(props) {
@@ -18,7 +19,11 @@ class PipelineList extends Component {
     let addPipelineBtn = <button className="add" onClick={this.addPipeline.bind(this)}>Add Pipeline</button>;
     return (
       <div className={pipelineListClasses}>
-        <h2>Pipelines</h2>
+        <PipelineIcon width="0" height="0" />
+        <h2>
+          <svg className="pipeline_icon"><use xlinkHref="#pipeline" /></svg>
+          Pipelines
+        </h2>
         {this.props.pipelines.length == 0 ? noPipelinesMsg : (this.state.editing ? doneBtn : editBtn)}
         <ul>
           {this.props.pipelines.map((pipeline, i) => <li className="pipeline_row" key={i}>
