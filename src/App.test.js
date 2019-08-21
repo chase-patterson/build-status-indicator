@@ -23,7 +23,7 @@ it('A Pipeline is added to the list in state', async () => {
 it('A Pipeline is removed from the list in state', async () => {
   fetch
     .mockResponseOnce([])
-    .mockResponseOnce([])
+    .mockResponseOnce([]);
   const app = mount(<App />);
 
   fetch.mockResponseOnce(JSON.stringify({ id: '12345' }));

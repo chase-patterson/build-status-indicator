@@ -13,11 +13,20 @@ class App extends Component {
     super(props);
 
     this.state = {
+        pipelinesLoaded: false,
+        indicatorsLoaded: false,
         pipelines: [],
         indicatorIds: [],
         indicators: [],
         controllers: []
     };
+  }
+
+  isLoaded() {
+    [
+      this.state.pipelinesLoaded,
+      this.state.indicatorsLoaded
+    ].every((loaded) => loaded);
   }
 
   componentDidMount() {
@@ -26,7 +35,7 @@ class App extends Component {
     ).then(
       (result) => {
         this.setState({
-          isLoaded: true,
+          indicatorsLoaded: true,
           indicatorIds: result.map((indicator) => {
             return (
               indicator.id
@@ -48,7 +57,7 @@ class App extends Component {
     ).then(
       (result) => {
         this.setState({
-          isLoaded: true,
+          pipelinesLoaded: true,
           pipelines: result.map((pipeline) => {
             return (
               <Pipeline id={pipeline.id} indicator-ids={this.state.indicatorIds}
