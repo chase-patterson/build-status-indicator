@@ -1,5 +1,5 @@
-.IndicatorList {
-    .indicator_icon {
+.ControllerList {
+    .controller_icon {
         padding: 0.25em;
         box-sizing: border-box;
         width: 2em;
@@ -13,16 +13,6 @@
 
         svg {
             vertical-align: middle;
-        }
-    }
-
-    ul {
-        list-style-type: none;
-        padding-left: 0;
-        clear: right;
-
-        .indicator_row {
-            margin-bottom: 0.25em;
         }
     }
 }

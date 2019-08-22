@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Controller from '../Controller/Controller';
+import './ControllerList.scss';
+import ControllerIcon from '../../../assets/images/controller.svg';
 
 class ControllerList extends Component {
   constructor(props) {
@@ -9,7 +11,11 @@ class ControllerList extends Component {
   render() {
     return (
       <div className="ControllerList">
-        <h2>Controllers</h2>
+        <ControllerIcon width="0" height="0" />
+        <h2>
+          <svg className="controller_icon"><use xlinkHref="#controller" /></svg>
+          Controllers
+        </h2>
         <ul>
           {this.props.controllers.map((controller, i) => <li key={i}>
             {controller}

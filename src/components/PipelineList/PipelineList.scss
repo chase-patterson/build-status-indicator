@@ -3,9 +3,11 @@
 
 .PipelineList {
     .pipeline_icon {
+        padding: 0.25em;
+        box-sizing: border-box;
         width: 2em;
         height: 2em;
-        display: inline;
+        display: inline-block;
     }
 
     h2 {

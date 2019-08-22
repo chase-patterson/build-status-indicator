@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './IndicatorList.scss';
-import LightbulbIcon from '../../../assets/images/lightbulb.svg';
+import IndicatorIcon from '../../../assets/images/indicator.svg';
 
 class IndicatorList extends Component {
   constructor(props) {
@@ -11,9 +11,9 @@ class IndicatorList extends Component {
   render() {
     return (
       <div className="IndicatorList">
-        <LightbulbIcon width="0" height="0" />
+        <IndicatorIcon width="0" height="0" />
         <h2>
-          <svg className="lightbulb_icon"><use xlinkHref="#lightbulb" /></svg>
+          <svg className="indicator_icon"><use xlinkHref="#indicator" /></svg>
           Indicators
         </h2>
         <ul>
