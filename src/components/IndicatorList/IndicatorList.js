@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './IndicatorList.scss';
-import LightbulbIcon from '../../../assets/images/lightbulb_symbol.svg';
+import LightbulbIcon from '../../../assets/images/lightbulb.svg';
 
 class IndicatorList extends Component {
   constructor(props) {

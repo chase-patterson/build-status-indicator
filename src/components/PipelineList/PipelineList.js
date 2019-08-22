@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './PipelineList.scss';
-import PipelineIcon from '../../../assets/images/pipeline_symbol.svg';
+import PipelineIcon from '../../../assets/images/pipeline.svg';
 
 class PipelineList extends Component {
   constructor(props) {
