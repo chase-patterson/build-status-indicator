@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme'
 import App from './App';
-import { JestEnvironment } from '@jest/environment';
-import { doesNotReject } from 'assert';
 
 it('A Pipeline is added to the list in state', async () => {
   fetch
