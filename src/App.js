@@ -74,7 +74,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Build Status Indicator</h1>
+        <img className="logo" src="/logo.png" />
         <PipelineList
           pipelines={this.state.pipelines}
           addPipeline={this.addPipeline.bind(this)}
