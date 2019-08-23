@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './PipelineList.scss';
-import PipelineIcon from '../../../assets/images/pipeline.svg';
+import PipelineIcon from '../../assets/images/pipeline.svg';
 
 class PipelineList extends Component {
   constructor(props) {
@@ -19,6 +19,13 @@ class PipelineList extends Component {
     let addPipelineBtn = <button className="add" onClick={this.addPipeline.bind(this)}>Add Pipeline</button>;
     return (
       <div className={pipelineListClasses}>
+        <svg height="0" width="0">
+          <defs>
+            <filter id="dropshadow">
+              <feDropShadow dx="1" dy="1" stdDeviation="1"/>
+            </filter>
+          </defs>
+        </svg>
         <PipelineIcon width="0" height="0" />
         <h2>
           <svg className="pipeline_icon"><use xlinkHref="#pipeline" /></svg>

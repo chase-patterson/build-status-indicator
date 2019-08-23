@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './IndicatorList.scss';
-import IndicatorIcon from '../../../assets/images/indicator.svg';
+import IndicatorIcon from '../../assets/images/indicator.svg';
 
 class IndicatorList extends Component {
   constructor(props) {

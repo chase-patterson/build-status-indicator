@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Controller from '../Controller/Controller';
 import './ControllerList.scss';
-import ControllerIcon from '../../../assets/images/controller.svg';
+import ControllerIcon from '../../assets/images/controller.svg';
 
 class ControllerList extends Component {
   constructor(props) {
