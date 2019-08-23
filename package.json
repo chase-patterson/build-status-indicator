@@ -20,9 +20,11 @@
     "react-test-renderer": "^16.9.0",
     "sass-loader": "^7.2.0",
     "style-loader": "^1.0.0",
+    "webpack-merge": "4.2.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0",
-    "webpack": "^4.39.1"
+    "webpack": "^4.39.1",
+    "webpack-bundle-analyzer": "^3.4.1"
   },
   "dependencies": {
     "react-dom": "^16.9.0",
@@ -30,9 +32,11 @@
     "uuid": "3.3.2"
   },
   "scripts": {
-    "start": "webpack-dev-server --open --host 0.0.0.0 --mode development",
-    "build:dev": "webpack --mode development",
-    "build": "webpack --mode production",
+    "start:dev": "webpack-dev-server --open --host 0.0.0.0 --mode development --config webpack.dev.js",
+    "start": "webpack-dev-server --open --host 0.0.0.0 --mode production --config webpack.prod.js",
+    "build:dev": "webpack --mode development --config webpack.dev.js",
+    "build": "webpack --mode production --config webpack.prod.js",
+    "analyze": "webpack --mode production --config webpack.analyze.js",
     "test": "jest"
   },
   "jest": {
