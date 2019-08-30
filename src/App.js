@@ -61,14 +61,14 @@ class App extends Component {
           pipelines: result.map((pipeline) => {
             return (
               <Pipeline id={pipeline.id} indicator-ids={this.state.indicatorIds}
-                jenkins-project-url={pipeline.jenkins_project_url} indicator-associations={pipeline['indicator_associations'].map(assoc => ({...assoc, uuid: uuid()}))} />
+                jenkins-project-url={pipeline.jenkins_project_url} indicator-associations={pipeline.indicator_associations.map(assoc => ({...assoc, uuid: uuid()}))} />
             );
           })
         })
       },
       (error) => {
       }
-    )
+    );
   }
 
   render() {
